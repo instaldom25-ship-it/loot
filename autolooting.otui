@@ -1,0 +1,83 @@
+MainWindow
+  id: autoLootWindow
+  !text: tr('Auto Loot')
+  size: 500 420
+  @onSetup: |
+    g_ui.centerInScreen(self)
+
+  Panel
+    id: topPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 36
+    padding: 4 8
+
+    Label
+      id: titleLabel
+      !text: tr('Auto Loot Rules')
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: parent.left
+      font: cipsoftFont
+
+  HorizontalSeparator
+    id: topSeparator
+    anchors.top: topPanel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: rulesPanel
+    anchors.top: topSeparator.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: bottomSeparator.top
+    padding: 4
+
+    ScrollablePanel
+      id: rulesScroll
+      anchors.fill: parent
+      layout:
+        type: verticalBox
+        spacing: 2
+      padding: 2
+      focusable: false
+      verticalScrollbar: rulesScrollbar
+
+    VerticalScrollBar
+      id: rulesScrollbar
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      step: 14
+      pixels: true
+
+  HorizontalSeparator
+    id: bottomSeparator
+    anchors.bottom: bottomPanel.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: bottomPanel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 40
+    padding: 4 8
+
+    Button
+      id: addItemButton
+      !text: tr('Add New Item')
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      width: 110
+      @onClick: AutoLoot.openItemSelector()
+
+    Button
+      id: closeButton
+      !text: tr('Close')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      width: 70
+      @onClick: AutoLoot.close()

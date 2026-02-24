@@ -1,0 +1,87 @@
+MainWindow
+  id: itemSelectorWindow
+  !text: tr('Select Item')
+  size: 460 480
+  @onSetup: |
+    g_ui.centerInScreen(self)
+
+  Panel
+    id: searchPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 40
+    padding: 6 8
+
+    Label
+      !text: tr('Search:')
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      width: 50
+
+    TextEdit
+      id: searchInput
+      anchors.left: prev.right
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-left: 4
+      placeholder: tr('Type item name...')
+      @onTextChange: |
+        AutoLoot.filterItemSelector(self:getText())
+
+  HorizontalSeparator
+    id: searchSeparator
+    anchors.top: searchPanel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: itemsPanel
+    anchors.top: searchSeparator.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: bottomSeparator.top
+    padding: 4
+
+    ScrollablePanel
+      id: itemsScroll
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      anchors.right: itemsScrollbar.left
+      layout:
+        type: grid
+        cell-size: 34 34
+        cell-spacing: 2
+      focusable: false
+      verticalScrollbar: itemsScrollbar
+
+    VerticalScrollBar
+      id: itemsScrollbar
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      step: 36
+      pixels: true
+
+  HorizontalSeparator
+    id: bottomSeparator
+    anchors.bottom: bottomPanel.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: bottomPanel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 40
+    padding: 4 8
+
+    Button
+      id: cancelButton
+      !text: tr('Cancel')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      width: 70
+      @onClick: AutoLoot.closeItemSelector()
