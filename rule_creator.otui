@@ -1,0 +1,128 @@
+MainWindow
+  id: ruleCreatorWindow
+  !text: tr('Add Loot Rule')
+  size: 340 220
+  @onSetup: |
+    g_ui.centerInScreen(self)
+
+  Panel
+    id: itemInfoPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 70
+    padding: 8
+
+    Panel
+      id: itemIconPanel
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      size: 34 34
+      border-width: 1
+      border-color: #555555
+
+      UIItem
+        id: itemIcon
+        anchors.fill: parent
+        focusable: false
+        visible: false
+
+      Label
+        id: itemIconPlaceholder
+        anchors.centerIn: parent
+        font: cipsoftFont
+        color: #888888
+        text: '?'
+        visible: true
+
+    Panel
+      id: itemNamePanel
+      anchors.left: itemIconPanel.right
+      anchors.right: parent.right
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      padding-left: 8
+
+      Label
+        id: itemNameLabel
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        !text: tr('Item:')
+        font: cipsoftFont
+
+      Label
+        id: selectedItemLabel
+        anchors.top: itemNameLabel.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text: '-'
+        color: #ffff00
+        font: cipsoftFont
+
+      Label
+        id: itemIdLabel
+        anchors.top: selectedItemLabel.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text: ''
+        color: #aaaaaa
+        font: cipsoftFont
+
+  HorizontalSeparator
+    id: topSeparator
+    anchors.top: itemInfoPanel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: containerPanel
+    anchors.top: topSeparator.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 52
+    padding: 6 8
+
+    Label
+      !text: tr('Target Container:')
+      anchors.top: parent.top
+      anchors.left: parent.left
+      font: cipsoftFont
+
+    TextEdit
+      id: containerInput
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 2
+      placeholder: tr('e.g. backpack, bag (name or ID)')
+
+  HorizontalSeparator
+    id: bottomSeparator
+    anchors.bottom: bottomPanel.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: bottomPanel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 40
+    padding: 4 8
+
+    Button
+      id: confirmButton
+      !text: tr('Add Rule')
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      width: 80
+      @onClick: AutoLoot.confirmRuleCreator()
+
+    Button
+      id: cancelButton
+      !text: tr('Cancel')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      width: 70
+      @onClick: AutoLoot.closeRuleCreator()
